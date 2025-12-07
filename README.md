@@ -1,11 +1,11 @@
 # RAG System for Multiple Choice Question Answering
 
-Hệ thống RAG production-ready để trả lời câu hỏi trắc nghiệm từ tài liệu PDF, áp dụng kiến trúc từ [arxiv-paper-curator](https://github.com/jamwithai/arxiv-paper-curator).
+RAG architecture for multiple choice question answering task - Inspired by [arxiv-paper-curator](https://github.com/jamwithai/arxiv-paper-curator).
 
 ## Quick Start
 
 ### Prerequisites
-- Docker Desktop (with Docker Compose)
+- Docker (with Docker Compose)
 - Python 3.11+
 - UV package manager: `curl -LsSf https://astral.sh/uv/install.sh | sh`
 - 8GB+ RAM, 20GB+ disk space
@@ -44,7 +44,7 @@ curl http://localhost:8000/health | python -m json.tool
 # Expected: All services "healthy" or "ready"
 ```
 
-## 📊 Architecture
+## Architecture
 
 ```
 PDF Files → Docling Parser → PostgreSQL → Section-Aware Chunker → Embeddings (Sentence Transformers)
@@ -54,7 +54,7 @@ Question → FastAPI → Hybrid Search (OpenSearch: BM25 + Vector + RRF) → Oll
                      Redis Cache (optional)
 ```
 
-## 🎯 Key Components
+## Key Components
 
 | Component | Technology | Purpose |
 |-----------|-----------|---------|
@@ -179,21 +179,21 @@ make list-models    # List available models
 Edit `.env` file to customize:
 
 ```bash
-# Embeddings (thay thế Jina AI)
+# Embedding model
 EMBEDDINGS_MODEL_NAME=sentence-transformers/paraphrase-multilingual-mpnet-base-v2
 
-# Chunking
+# Chunking config
 CHUNKING_CHUNK_SIZE=600
 CHUNKING_OVERLAP_SIZE=100
 
-# Search
+# Search config for opensearch
 SEARCH_TOP_K_DEFAULT=5
 SEARCH_USE_HYBRID_DEFAULT=true
 
-# LLM (customize model)
+# LLM (ollama model)
 OLLAMA_MODEL=llama3.2:3b  # Change to qwen2.5:7b for better quality
 
-# Cache
+# Cache config
 REDIS_ENABLED=true
 REDIS_CACHE_TTL_HOURS=24
 ```
@@ -263,7 +263,7 @@ airflow/dags/
 ## Features
 
 ### PDF Processing (Docling)
-- Structured content extraction with GROBID
+- Structured content extraction with GROBID and Docling
 - Section detection and preservation
 - Table extraction
 - Metadata extraction
@@ -291,9 +291,9 @@ airflow/dags/
 - Airflow automation
 - Scalable architecture
 
-## 📈 Performance
+## Performance
 
-| Metric | Value |
+| Metric | Expected Value |
 |--------|-------|
 | **Search Latency (BM25)** | ~50ms |
 | **Search Latency (Hybrid)** | ~150ms |
@@ -332,7 +332,6 @@ See `.env.example` for all configuration options. Key variables:
 ## References
 
 - **GitHub**: [arxiv-paper-curator](https://github.com/jamwithai/arxiv-paper-curator)
-- **Blog Series**: [Jam with AI](https://jamwithai.substack.com/)
 - **Docling**: https://github.com/DS4SD/docling
 - **OpenSearch**: https://opensearch.org/docs/latest/
 - **Sentence Transformers**: https://www.sbert.net/
