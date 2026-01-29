@@ -4,6 +4,7 @@ RAG architecture for multiple choice question answering task - Inspired by [arxi
 
 ## Performance
 Achieved approximately 62.5% accuracy on the QA task using the Phase 4 private test set in Viettel AI Race 2025, ranked in the top 30.
+
 ![Phase 4 result](images/result.png)
 ## Quick Start
 
